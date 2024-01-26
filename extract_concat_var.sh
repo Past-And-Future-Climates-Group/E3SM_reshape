@@ -24,11 +24,12 @@ do
    echo ${fnam}
 
    # Extract SSH, SST information
-   echo ncks -v temperatureAtSurface ${hf} sst_${fnam}.nc
-   ncks -v temperatureAtSurface ${hf} sst_${fnam}.nc
+   # (writing raw casename into the temporary filename so it will be retained in the netCDF metadata)
+   echo ncks -v temperatureAtSurface ${hf} sst_${ensname}_${fnam}.nc
+   ncks -v temperatureAtSurface ${hf} sst_${ensname}_${fnam}.nc
 
-   echo ncks -v ssh ${hf} ssh_${fnam}.nc
-   ncks -v ssh ${hf} ssh_${fnam}.nc
+   echo ncks -v ssh ${hf} ssh_${ensname}_${fnam}.nc
+   ncks -v ssh ${hf} ssh_${ensname}_${fnam}.nc
 
 done
 
@@ -48,3 +49,6 @@ mkdir -p /glade/campaign/cgd/ccr/E3SMv1-LE/CMOR/historical/${cmorname}/day/zos
 cp tos_day_E3SM-1-0_historical_${cmorname}_gr_18500101-20151231.nc /glade/campaign/cgd/ccr/E3SMv1-LE/CMOR/historical/${cmorname}/day/tos
 cp zos_day_E3SM-1-0_historical_${cmorname}_gr_18500101-20151231.nc /glade/campaign/cgd/ccr/E3SMv1-LE/CMOR/historical/${cmorname}/day/zos
 
+# Remove temporary files
+rm sst*.nc
+rm ssh*.nc
